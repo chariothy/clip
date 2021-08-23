@@ -1,0 +1,39 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    container_name: clip-redis
+    volumes:
+      - redis-volume:/data
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+  clip:
+    build: .
+    container_name: clip-api
+    volumes:
+      - /www/clip:/root
+    working_dir: /root
+    networks: 
+      - default
+    ports: 
+      - ${CLIP_PORT:-8833}:8000
+    restart: unless-stopped
+    depends_on:
+      - redis
+    logging:
+      options:
+        max-size: "10m"
+    environment: 
+      - CLIP_MAIL_FROM=${MAIL_FROM:-"Henry TIAN <chariothy@gmail.com>"}
+      - CLIP_MAIL_TO=${MAIL_TO:-"Henry TIAN <chariothy@gmail.com>"}
+      - CLIP_SMTP_HOST=${SMTP_HOST:-smtp.gmail.com}
+      - CLIP_SMTP_PORT=${SMTP_PORT:-25}
+      - CLIP_SMTP_USER=${SMTP_USER:-chariothy@gmail.com}
+      - CLIP_SMTP_PWD=${SMTP_PWD}
+      - ENV=${ENV}
+    command: python main.py
+
+volumes:
+  redis-volume:
