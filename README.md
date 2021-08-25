@@ -12,7 +12,7 @@ Mini clip board for curl &amp; webpage.
     `curl localhost:8000 -F f=@c:/some-file`
 
 
-## Get something from it ({id} is what we just returned from Copy)
+## Get something from it ({id} is what we just returned from Put)
 1. Get message
    
     `curl localhost:8000/{id}`
