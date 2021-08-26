@@ -23,14 +23,12 @@ def gen_rand():
 
 @app.post('/')
 async def copy(req: Request, f: Optional[UploadFile] = File(None), t: Optional[str] = Form(None)):
-    r"""  post json """
-    print(f.content_type, f.file, f.filename)
     id = gen_rand()
     time_left=at['timeout']
     if t:
         REDIS.set(id, t, time_left)
     elif f:
-        fpath, fullname = path.split(f.filename)
+        _, fullname = path.split(f.filename)
         name, ext = path.splitext(fullname)
         new_name = f'{name}_{id}{ext}' if ext else f'{name}_{id}'
         out_file_path = path.join(at['tmp_dir'], new_name)
@@ -47,7 +45,7 @@ async def copy(req: Request, f: Optional[UploadFile] = File(None), t: Optional[s
 @app.get('/{id}')
 async def paste(req: Request, id: int):
     text = REDIS.get(id)
-    print(text)
+    #print(text)
     if path.exists(text):
         def iterfile():
             with open(text, mode="rb") as file_like:
