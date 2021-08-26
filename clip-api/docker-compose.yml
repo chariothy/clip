@@ -13,11 +13,11 @@ services:
     build: .
     container_name: clip-api
     volumes:
-      - /www/clip:/root
+      - /www/clip/clip-api:/root
     working_dir: /root
-    networks: 
+    networks:
       - default
-    ports: 
+    ports:
       - ${CLIP_PORT:-8833}:8000
     restart: unless-stopped
     depends_on:
@@ -25,7 +25,7 @@ services:
     logging:
       options:
         max-size: "10m"
-    environment: 
+    environment:
       - CLIP_MAIL_FROM=${MAIL_FROM:-"Henry TIAN <chariothy@gmail.com>"}
       - CLIP_MAIL_TO=${MAIL_TO:-"Henry TIAN <chariothy@gmail.com>"}
       - CLIP_SMTP_HOST=${SMTP_HOST:-smtp.gmail.com}
