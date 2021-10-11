@@ -21,6 +21,7 @@ Mini clip board for curl &amp; webpage.
 
     `curl -o file_name.ext localhost:8000/{id}`
 
+## Show usage : `curl localhost:8000`
 
 
 # TODO:
