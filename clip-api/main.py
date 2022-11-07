@@ -46,27 +46,27 @@ async def copy(req: Request, f: Optional[UploadFile] = File(None), t: Optional[s
 async def usage(req: Request):
     html_content = '''<pre>
 # clip
-Mini clip board for curl & webpage.
+Mini clip board for curl & webpage. (-L for 30x redirect)
 
 ## Put something on it (simply return digital id)
 
 1. Put message
    
-    `curl localhost:8000 -F t="Some text"`
+    `curl -L localhost:8000 -F t="Some text"`
 
 2. Put file
 
-    `curl localhost:8000 -F f=@c:/some-file`
+    `curl -L localhost:8000 -F f=@c:/some-file`
 
 
 ## Get something from it ({id} is what we just returned from Put)
 1. Get message
    
-    `curl localhost:8000/{id}`
+    `curl -L localhost:8000/{id}`
 
 2. Get file
 
-    `curl -o file_name.ext localhost:8000/{id}`
+    `curl -L -o file_name.ext localhost:8000/{id}`
 </pre>
 '''
     return HTMLResponse(content=html_content, status_code=200)

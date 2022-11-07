@@ -10,7 +10,7 @@ import io
 
 class ClipUtil(AppTool):
     def __init__(self):
-        super(ClipUtil, self).__init__('CLIP', os.getcwd())
+        super(ClipUtil, self).__init__('CLIP')
         self._session = None
 
 
