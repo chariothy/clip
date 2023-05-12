@@ -1,7 +1,7 @@
 # For docker project
 # @version 1.0
 
-FROM python:3.10
+FROM python:latest
 LABEL maintainer="chariothy@gmail.com"
 
 EXPOSE 8833
